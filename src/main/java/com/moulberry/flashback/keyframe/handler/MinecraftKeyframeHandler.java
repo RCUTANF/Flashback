@@ -4,18 +4,24 @@ import com.moulberry.flashback.keyframe.change.*;
 import com.moulberry.flashback.state.EditorState;
 import com.moulberry.flashback.state.EditorStateManager;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Vector3d;
 
 import java.util.Set;
+import java.util.UUID;
 
 public record MinecraftKeyframeHandler(Minecraft minecraft) implements KeyframeHandler {
 
     private static final Set<Class<? extends KeyframeChange>> supportedChanges = Set.of(
             KeyframeChangeCameraPosition.class, KeyframeChangeCameraPositionOrbit.class, KeyframeChangeTrackEntity.class,
-            KeyframeChangeFov.class, KeyframeChangeTimeOfDay.class, KeyframeChangeCameraShake.class
+            KeyframeChangeFov.class, KeyframeChangeTimeOfDay.class, KeyframeChangeCameraShake.class, KeyframeChangeSpectateEntity.class
     );
+
+    //just a stupid but work fun
+    private static UUID lastSpectatedEntityUUID = null;
 
     @Override
     public Minecraft getMinecraft() {
@@ -74,6 +80,25 @@ public record MinecraftKeyframeHandler(Minecraft minecraft) implements KeyframeH
         EditorState editorState = EditorStateManager.getCurrent();
         if (editorState != null) {
             editorState.replayVisuals.setCameraShake(frequencyX, amplitudeX, frequencyY, amplitudeY);
+        }
+    }
+
+    @Override
+    public void spectateEntity(UUID uuid) {
+        // 检查UUID是否变化，只有变化时才执行命令
+        if (uuid != null && !uuid.equals(lastSpectatedEntityUUID)) {
+            ClientLevel level = minecraft.level;
+            if (level != null) {
+                Entity entity = level.getEntities().get(uuid);
+                if (entity != null) {
+                    // 获取实体名称
+                    String entityName = entity.getName().getString();
+                    // 发送spectate命令
+                    minecraft.getConnection().sendUnsignedCommand("spectate " + entityName);
+                    // 更新缓存的UUID
+                    lastSpectatedEntityUUID = uuid;
+                }
+            }
         }
     }
 }

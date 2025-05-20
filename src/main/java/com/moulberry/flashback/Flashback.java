@@ -246,6 +246,7 @@ public class Flashback implements ModInitializer, ClientModInitializer {
         KeyframeRegistry.register(CameraKeyframeType.INSTANCE);
         KeyframeRegistry.register(CameraOrbitKeyframeType.INSTANCE);
         KeyframeRegistry.register(TrackEntityKeyframeType.INSTANCE);
+        KeyframeRegistry.register(SpectateEntityKeyframeType.INSTANCE);
         KeyframeRegistry.register(CameraShakeKeyframeType.INSTANCE);
         KeyframeRegistry.register(FOVKeyframeType.INSTANCE);
         KeyframeRegistry.register(SpeedKeyframeType.INSTANCE);

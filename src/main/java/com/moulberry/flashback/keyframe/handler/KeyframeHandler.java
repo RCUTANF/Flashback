@@ -39,5 +39,8 @@ public interface KeyframeHandler {
     default void applyCameraShake(float frequencyX, float amplitudeX, float frequencyY, float amplitudeY) {
     }
 
+    default void spectateEntity(UUID uuid){};
+
+
 
 }

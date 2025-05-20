@@ -2,16 +2,7 @@ package com.moulberry.flashback.keyframe;
 
 import com.google.gson.*;
 import com.moulberry.flashback.keyframe.change.KeyframeChange;
-import com.moulberry.flashback.keyframe.impl.BlockOverrideKeyframe;
-import com.moulberry.flashback.keyframe.impl.CameraKeyframe;
-import com.moulberry.flashback.keyframe.impl.CameraOrbitKeyframe;
-import com.moulberry.flashback.keyframe.impl.CameraShakeKeyframe;
-import com.moulberry.flashback.keyframe.impl.TrackEntityKeyframe;
-import com.moulberry.flashback.keyframe.impl.FOVKeyframe;
-import com.moulberry.flashback.keyframe.impl.FreezeKeyframe;
-import com.moulberry.flashback.keyframe.impl.TickrateKeyframe;
-import com.moulberry.flashback.keyframe.impl.TimeOfDayKeyframe;
-import com.moulberry.flashback.keyframe.impl.TimelapseKeyframe;
+import com.moulberry.flashback.keyframe.impl.*;
 import com.moulberry.flashback.keyframe.interpolation.InterpolationType;
 import com.moulberry.flashback.state.RealTimeMapping;
 
@@ -54,6 +45,7 @@ public abstract class Keyframe {
                 case "camera" -> context.deserialize(json, CameraKeyframe.class);
                 case "camera_orbit" -> context.deserialize(json, CameraOrbitKeyframe.class);
                 case "track_entity" -> context.deserialize(json, TrackEntityKeyframe.class);
+                case "spectate_entity" -> context.deserialize(json, SpectateEntityKeyframe.class);
                 case "fov" -> context.deserialize(json, FOVKeyframe.class);
                 case "tickrate" -> context.deserialize(json, TickrateKeyframe.class);
                 case "freeze" -> context.deserialize(json, FreezeKeyframe.class);
