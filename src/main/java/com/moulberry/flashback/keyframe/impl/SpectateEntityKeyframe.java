@@ -80,11 +80,11 @@ public class SpectateEntityKeyframe extends Keyframe {
     }
 
     @Override
-    public KeyframeChange createHermiteInterpolatedChange(Map<Integer, Keyframe> keyframes, float amount) {
+    public KeyframeChange createHermiteInterpolatedChange(Map<Float, Keyframe> keyframes, float tick) {
         float lowestTickDelta = Float.MAX_VALUE;
         UUID target = null;
-        for (Map.Entry<Integer, Keyframe> entry : keyframes.entrySet()) {
-            float tickDelta = Math.abs(entry.getKey() - amount);
+        for (Map.Entry<Float, Keyframe> entry : keyframes.entrySet()) {
+            float tickDelta = Math.abs(entry.getKey() - tick);
             if (tickDelta < lowestTickDelta) {
                 lowestTickDelta = tickDelta;
                 target = ((SpectateEntityKeyframe)entry.getValue()).target;
