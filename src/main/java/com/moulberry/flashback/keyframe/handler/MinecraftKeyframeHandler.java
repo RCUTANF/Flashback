@@ -85,8 +85,11 @@ public record MinecraftKeyframeHandler(Minecraft minecraft) implements KeyframeH
 
     @Override
     public void spectateEntity(UUID uuid) {
+
         // 检查UUID是否变化，只有变化时才执行命令
-        if (uuid != null && !uuid.equals(lastSpectatedEntityUUID)) {
+        if (uuid != null
+                //&& !uuid.equals(lastSpectatedEntityUUID)
+        ) {
             ClientLevel level = minecraft.level;
             if (level != null) {
                 Entity entity = level.getEntities().get(uuid);
@@ -96,7 +99,7 @@ public record MinecraftKeyframeHandler(Minecraft minecraft) implements KeyframeH
                     // 发送spectate命令
                     minecraft.getConnection().sendUnsignedCommand("spectate " + entityName);
                     // 更新缓存的UUID
-                    lastSpectatedEntityUUID = uuid;
+                    //lastSpectatedEntityUUID = uuid;
                 }
             }
         }

@@ -18,10 +18,5 @@ public class KeyframeChangeSpectateEntity implements KeyframeChange {
     }
 
     @Override
-    public KeyframeChange interpolate(KeyframeChange to, double amount) {
-        KeyframeChangeSpectateEntity other = (KeyframeChangeSpectateEntity) to;
-        return new KeyframeChangeSpectateEntity(
-                amount < 0.5 ? this.target : other.target
-        );
-    }
+    public KeyframeChange interpolate(KeyframeChange to, double amount) {return this; }
 }
