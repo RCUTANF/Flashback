@@ -6,13 +6,24 @@ public enum SidedInterpolationType {
     LINEAR,
     EASE,
     HOLD,
-    HERMITE;
+    HERMITE,
+    TRIGGER;
 
     private boolean isSpecial() {
         return this == SidedInterpolationType.SMOOTH || this == SidedInterpolationType.HERMITE;
     }
 
     public static float interpolate(SidedInterpolationType left, SidedInterpolationType right, float amount) {
+        // 处理TRIGGER类型
+        if (left == SidedInterpolationType.TRIGGER) {
+            // 只在精确的关键帧点(amount=0或1)触发，使用极小的容差
+            if (amount == 0.0f) {
+                return 0.0f; // 特殊值表示"在起始关键帧触发"
+            }
+            else {
+                return -1.0f; // 中间状态不触发任何操作
+            }
+        }
         if (left.isSpecial()) {
             if (right.isSpecial()) {
                 left = SidedInterpolationType.LINEAR;

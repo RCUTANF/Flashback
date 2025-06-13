@@ -30,7 +30,7 @@ public class SpectateEntityKeyframe extends Keyframe {
     public UUID target;
 
     public SpectateEntityKeyframe(UUID target) {
-        this(target, InterpolationType.getDefault());
+        this(target, InterpolationType.TRIGGER);
     }
 
     public SpectateEntityKeyframe(UUID target, InterpolationType interpolationType) {
